@@ -1,0 +1,19 @@
+<div class="col-lg-7 col-lg-offset-2">
+<div class="well">
+
+<p class="body_font body_color">
+Please choose a start and destination station:
+</p>
+<%= simple_form_for(@bartstations, 
+    html: {:class => 'form-horizontal'}) do |f| %>
+    <% binding.pry %>
+    <%= f.input :start_station_id, collection: @start_stations, label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.input :end_station_id, collection: @end_stations,label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.submit "Submit".html_safe, :class => 'btn btn-lg btn-success body_font body_color' %>
+<% end %>
+</div>
+</div>

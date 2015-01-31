@@ -1,0 +1,32 @@
+<div class="col-lg-10 col-lg-offset-1">
+<table class="table table-responsive table-bordered table-hover">
+<tr>
+    <th class="col-lg-1 body_font heading_color">Route</th>
+    <th class="col-lg-1 body_font heading_color">Station</th>
+    <th class="col-lg-1 body_font heading_color">Sequence No.</th>
+    <th class="col-lg-1 body_font heading_color">DB Id</th>
+  </tr>
+	<% @bartroutestations.each do |bartroutestation| %>
+		<tr>
+			<% this_bartroute = Bartroute.find(bartroutestation.bartroute_id) %>
+			<% this_bartstation = Bartstation.find(bartroutestation.bartstation_id) %>
+			<td class="col-lg-1 body_font body_color"><%= this_bartroute.bart_route_name %></td>
+			<td class="col-lg-1 body_font body_color"><%= this_bartstation.station_name %></td>
+ 			<td class="col-lg-1 body_font body_color"><%= bartroutestation.route_station_sequence %></td>
+ 			<td class="col-lg-1 body_font body_color"><%= bartroutestation.id %></td>
+ 			<td class="col-lg-1 body_font body_color"><%= link_to "Edit route stations", edit_bartroutestation_path(bartroutestation),
+						:class => 'btn btn-info body_font' %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to "Stations", bartstations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Routes", bartroutes_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Create route stations", new_bartroutestation_path,
+						:class => 'btn btn-info body_font' %>
+</div>
+</div>

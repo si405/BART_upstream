@@ -1,0 +1,46 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand body_font heading_color">
+            <%=link_to "UpStream", new_bartjourney_path %>
+      </div>
+    </div>
+       <ul class="nav navbar-nav navbar-right body_font heading_color">
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle body_font" data-toggle="dropdown">Account<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <p class="navbar-text pull-right">
+            <% if user_signed_in? %>
+                <li><%= link_to 'Edit profile', edit_user_registration_path, 
+                  :class => 'navbar-link body_font' %> </li>
+                <li><%= link_to "Logout", destroy_user_session_path, 
+                  method: :delete, :class => 'navbar-link body_font'  %></li>
+            <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path, 
+                  :class => 'navbar-link body_font'  %></li>
+                <li><%= link_to "Login", new_user_session_path, 
+                  :class => 'navbar-link body_font'  %></li>
+            <% end %>
+          </ul>
+        </li>
+        <% if current_user.try(:admin?) %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle body_font heading_color" data-toggle="dropdown">Admin<span class="caret"></span></a>
+            <ul class="dropdown-menu body_font" role="menu">
+            <li class="body_font heading_color"><%=link_to "Stations", bartstations_path %></li>
+            <li class="body_font heading_color"><%=link_to "Routes", bartroutes_path %></li>
+            <li class="body_font heading_color"><%=link_to "Route Stations", bartroutestations_path %></li>
+            </ul>
+          <% end %>
+      </ul>
+ 
+  </div><!-- /.container-fluid -->
+</nav>

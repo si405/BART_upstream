@@ -1,0 +1,44 @@
+<div class="col-lg-10 col-lg-offset-1">
+<div class="well">
+<table class="table table-responsive table-bordered table-hover">
+<h1 class="col-lg-4 body_font col-lg-offset-4 heading_color">Route Details</h1>
+  <tr>
+    <th class="col-lg-1 body_font heading_color">Route</th>
+    <th class="col-lg-1 body_font heading_color">Abbreviation</th>
+    <th class="col-lg-1 body_font heading_color">Route ID</th>
+    <th class="col-lg-1 body_font heading_color">Route No.</th>
+    <th class="col-lg-1 body_font heading_color">Route Color</th>
+    <th class="col-lg-1 body_font heading_color">DB Id</th>
+  </tr>
+	<% @bartroutes.each do |bartroute| %>
+		<tr>
+			<td class="col-lg-1 body_font body_color"><%= bartroute.bart_route_name %></td>
+			<td class="col-lg-1 body_font body_color"><%= bartroute.bart_route_short_name %></td>
+ 			<td class="col-lg-1 body_font body_color"><%= bartroute.bart_route_id %></td>
+			<td class="col-lg-1 body_font body_color"><%= bartroute.bart_route_number %></td>
+			<td class="col-lg-1 body_font body_color"><%= bartroute.bart_route_color %></td>
+			<td class="col-lg-1 body_font body_color"><%= bartroute.id %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to "Stations", bartstations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Create routes", bartroutes_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "View route stations", bartroutestations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Edit route stations", edit_bartroutestation_path(19),
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Seed routes", seed_bart_routes_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Unseed routes", unseed_bart_routes_path,
+						:class => 'btn btn-info body_font' %>
+
+</div>
+</div>

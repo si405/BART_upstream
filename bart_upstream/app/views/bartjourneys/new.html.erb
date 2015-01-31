@@ -1,0 +1,27 @@
+<div class="col-lg-6 col-lg-offset-3">
+
+<h1 class="col-lg-8 body_font col-lg-offset-3 heading_color">New Journey</h1>
+
+<div class="col-lg-7 col-lg-offset-2">
+<div class="well">
+
+<p class="body_font body_color">
+Please choose a starting and destination station
+</p>
+<%= simple_form_for(@bartjourney, 
+    html: {:class => 'form-horizontal'}) do |f| %>
+    <%= f.input :start_station_id, collection: @bartstations, label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.input :end_station_id, collection: @bartstations,label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.input :direction,  collection: ['Normal','Reverse'],label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.submit "Submit".html_safe, :class => 'btn btn-lg btn-success col-lg-offset-4 body_font body_color' %>
+<% end %>
+</div>
+</div>
+</div>
+</div>

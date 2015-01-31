@@ -1,0 +1,50 @@
+<div class="col-lg-10 col-lg-offset-1">
+<div class="well">
+<table class="table table-responsive table-bordered table-hover">
+<h1 class="col-lg-4 body_font col-lg-offset-4 heading_color">Station Details</h1>
+  <tr>
+    <th class="col-lg-1 body_font heading_color">Station</th>
+    <th class="col-lg-1 body_font heading_color">Abbreviation</th>
+    <th class="col-lg-1 body_font heading_color">Latitude</th>
+    <th class="col-lg-1 body_font heading_color">Longitude</th>
+    <th class="col-lg-1 body_font heading_color">Address</th>
+    <th class="col-lg-1 body_font heading_color">City</th>
+    <th class="col-lg-1 body_font heading_color">County</th>
+    <th class="col-lg-1 body_font heading_color">State</th>
+    <th class="col-lg-1 body_font heading_color">Zip</th>
+    <th class="col-lg-1 body_font heading_color">DB Id</th>
+  </tr>
+	<% @bartstations.each do |station| %>
+		<tr>
+			<td class="col-lg-1 body_font body_color"><%= station.station_name %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.short_name %></td>
+ 			<td class="col-lg-1 body_font body_color"><%= station.gtfs_latitude %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.gtfs_longitude %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.address %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.city %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.county %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.state %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.zipcode %></td>
+			<td class="col-lg-1 body_font body_color"><%= station.id %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to "Create stations", bartstations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "View routes", bartroutes_path,
+						:class => 'btn btn-info body_font' %>
+
+
+<%= link_to "View route stations", bartroutestations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Seed stations", seed_stations_path,
+						:class => 'btn btn-info body_font' %>
+
+<%= link_to "Unseed stations", unseed_stations_path,
+						:class => 'btn btn-info body_font' %>
+
+</div>
+</div>

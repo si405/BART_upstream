@@ -1,0 +1,26 @@
+<div class="col-lg-8 col-lg-offset-2">
+<div class="well">
+
+<p class="body_font body_color">
+<%= "To get from #{@start_station} to #{@end_station} your options are:" %>
+</p>
+
+<p class="body_font body_color">
+<% @bartjourney_options.each do |origin_train,destination_options|%>
+	<%= "#{origin_train[0]} leaving in #{origin_train[1]} min connects at " %>
+	</br>
+	<% destination_options.each do |station, destination| %>
+		<%= "#{station[0]} in #{station[1]} mins to #{destination}" %>
+		</br>
+	<% end %>
+
+	</br></br>
+<% end %>
+</p>
+
+</div>
+
+<%= link_to "New journey", new_bartjourney_path,
+						:class => 'btn btn-info col-lg-offset-4 body_font' %>
+
+</div>

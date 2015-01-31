@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bartstation_id: 
+  bartroute_id: 
+
+two:
+  bartstation_id: 
+  bartroute_id: 

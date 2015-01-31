@@ -1,0 +1,36 @@
+
+
+
+Get the origin station and destination
+
+Get the next N stations upstream of origin
+
+For each upstream station
+	Get the departure times to the destination station
+
+
+Get the next departing trains heading upstream
+
+Show where the upstream and downstream trains meet
+	(arrival at upstream station < departure to destination)
+
+	
+
+	Things to fix:
+
+	Why is this block repeated over and over again:
+
+	ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=EMBR&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.130551
+  CACHE (0.2ms)  SELECT "bartstations"."id" FROM "bartstations"  WHERE (short_name = 'EMBR')
+  CACHE (0.1ms)  SELECT "bartroutestations".* FROM "bartroutestations"  WHERE (bartstation_id = 18)
+  CACHE (0.1ms)  SELECT  "bartroutestations".* FROM "bartroutestations"  WHERE (bartroute_id = 3 AND route_station_sequence > 12) LIMIT 5
+  CACHE (0.2ms)  SELECT "bartstations"."short_name" FROM "bartstations"  WHERE (id = 27)
+ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=MONT&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.066194
+  CACHE (0.1ms)  SELECT "bartstations"."short_name" FROM "bartstations"  WHERE (id = 34)
+ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=POWL&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.071907
+  CACHE (0.1ms)  SELECT "bartstations"."short_name" FROM "bartstations"  WHERE (id = 9)
+ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=CIVC&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.078337
+  CACHE (0.2ms)  SELECT "bartstations"."short_name" FROM "bartstations"  WHERE (id = 2)
+ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=16TH&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.0803
+  CACHE (0.1ms)  SELECT "bartstations"."short_name" FROM "bartstations"  WHERE (id = 21)
+ETHON: performed EASY effective_url=http://api.bart.gov/api/etd.aspx?cmd=etd&orig=GLEN&dir=s&key=ZZLI-UU93-IMPQ-DT35 response_code=200 return_code=ok total_time=0.069496

@@ -1,0 +1,21 @@
+<div class="col-lg-7 col-lg-offset-2">
+<div class="well">
+
+<p class="body_font body_color">
+Please choose a route and its associated station:
+</p>
+<%= simple_form_for(@bartroutestation, 
+    html: {:class => 'form-horizontal'}) do |f| %>
+    <%= f.input :bartroute_id, collection: @bartroute_names, label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.input :bartstation_id, collection: @bartstation_names,label: false, 
+        input_html:{:class => 'form-control body_font body_color'} %>
+    </br>
+    <%= f.input :route_station_sequence, label: false, 
+        input_html:{:class => 'form-control body_font body_color', placeholder: "Station sequence"} %>
+    </br>
+    <%= f.submit "Submit".html_safe, :class => 'btn btn-lg btn-success body_font body_color' %>
+<% end %>
+</div>
+</div>

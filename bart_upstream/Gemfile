@@ -1,0 +1,43 @@
+source 'https://rubygems.org'
+
+# Core management
+gem 'rails', '4.1.4'
+gem "pg"
+
+# Front end management
+gem 'sass-rails', '~> 4.0.3'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-datepicker-rails'
+gem 'simple_form'
+gem 'autoprefixer-rails'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'turbolinks' 
+gem 'jbuilder', '~> 2.0'
+gem 'spring',        group: :development
+gem 'annotate'
+gem 'devise'
+gem 'twilio-ruby' 
+
+# Require Typhoeus for HTTP
+gem 'typhoeus'
+
+# Require nokugiri for XML parsing
+gem 'nokogiri'
+
+# Require JSON
+gem 'json'
+
+# Development tools
+group :development do
+	gem 'binding_of_caller'
+	gem 'better_errors'
+	gem 'pry-rails'
+	gem 'pry'
+	gem 'pry-byebug'
+	gem 'thin'
+end
+
+# Documentation
+gem 'sdoc', '~> 0.4.0',          group: :doc

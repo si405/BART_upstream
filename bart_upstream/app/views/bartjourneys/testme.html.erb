@@ -1,0 +1,20 @@
+<div class="col-lg-8 col-lg-offset-2">
+<div class="well">
+
+<p class="body_font body_color">
+<%= "Test page:" %>
+</p>
+
+<p class="body_font body_color">
+<% @bartjourney_options.each do |key,value|%>
+		<%= "Key: #{key}, value: #{value}" %>
+			</br>
+<% end %>
+</p>
+
+</div>
+
+<%= link_to "New journey", new_bartjourney_path,
+						:class => 'btn btn-info col-lg-offset-4 body_font' %>
+
+</div>
