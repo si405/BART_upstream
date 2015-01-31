@@ -378,6 +378,9 @@ module BartjourneysHelper
 	def test_program
 		# Sort the hash to return the chronological options for each departing train
 
+		upstream_station_codes = 
+		{"EMBR"=>18, "MONT"=>27, "POWL"=>34, "CIVC"=>9, "16TH"=>2, "24TH"=>4}
+
 		feasible_train_options = 
 			 {["DALY", "3"]=>
 			  {["MONT", "11"]=>"Pittsburg/Bay Point",
@@ -436,11 +439,18 @@ module BartjourneysHelper
 			   ["CIVC", "33"]=>"Pittsburg/Bay Point",
 			   ["16TH", "31"]=>"Pittsburg/Bay Point"}}
 
+		j = 0
 		feasible_train_options.each do |train,departure_options|
 			i = 0
+			latest_time = 0
 			departure_options.each do |departure_details, destination|
-				if i == 0
-					# First entry for this train
+				if i = 0
+					# First entry for this train is the origin 
+					station_code = departure_details[0]
+					latest_time = departure_details[1]
+					train_order[j] = departure_options
+				else
+					# 
 				end
 				
 			end
