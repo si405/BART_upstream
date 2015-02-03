@@ -175,10 +175,6 @@ module BartjourneysHelper
 		# Sort the feasible train options hash in order of upstream station
 		# The hash upstream_station_codes holds the upstream stations in order
 
-
-
-		binding.pry
-
 		return feasible_train_options
 	end
 
@@ -549,8 +545,6 @@ module BartjourneysHelper
 			valid_trains = {}
 		
 		end 
-
-		binding.pry
 
 		return possible_trains
 
