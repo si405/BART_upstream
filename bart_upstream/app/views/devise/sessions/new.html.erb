@@ -1,22 +1,32 @@
-<div class="col-lg-6 col-lg-offset-3">
+<div class="col-lg-5 col-lg-offset-3">
 <div class="well">
 <table class="table table-responsive table-bordered table-hover">
-<h2 class="col-lg-4 bart_font col-lg-offset-4 heading_color">Log in</h2>
-<div class="col-lg-7 col-lg-offset-2">
+<h2 class="col-lg-4 bart_font col-lg-offset-5 heading_color">Log in</h2>
+<div class="col-lg-8 col-lg-offset-2">
 <div class="well">
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), 
 	html: {:class => 'form-horizontal'}) do |f| %>
   <div class="form-inputs">
     <%= f.input :email, required: false, autofocus: true,  
-    	input_html:{:class => 'form control bart_font body_color'}  %>
+    	input_html:{:class => 'form control full-width bart_font body_color'}  %>
+    </br>
     <%= f.input :password, required: false,
-    	input_html:{:class => 'form control bart_font body_color'}  %>
+    	input_html:{:class => 'form control full-width bart_font body_color'}  %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </br>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit, "Log in" %>
+    </br>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+</div>
+</div>
+</table>
+</div>
+</div>
+

@@ -1,5 +1,18 @@
+<div class="col-lg-5 col-lg-offset-3">
+<div class="well">
+<table class="table table-responsive table-bordered table-hover">
+<h1 class="col-lg-8 bart_font col-lg-offset-3 heading_color">Welcome</h1>
+<div class="col-lg-8 col-lg-offset-2">
+<div class="well">
+
 <p>Welcome <%= @email %>!</p>
 
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+</div>
+</div>
+</table>
+</div>
+</div>

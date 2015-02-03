@@ -1,24 +1,29 @@
-<div class="col-lg-8 col-lg-offset-1">
+<div class="col-lg-5 col-lg-offset-3">
 <div class="well">
 <table class="table table-responsive table-bordered table-hover">
 <h1 class="col-lg-4 bart_font col-lg-offset-4 heading_color">Sign Up</h1>
-<div class="col-lg-7 col-lg-offset-2">
+<div class="col-lg-8 col-lg-offset-2">
 <div class="well">
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
 	html: {:class => 'form-horizontal'}) do |f| %>
   <%= f.error_notification %>
-
     <%= f.input :email, required: true, autofocus: true, 
-    	input_html:{:class => 'form control bart_font body_color'}  %>
+    	input_html:{:class => 'form control full-width bart_font body_color'}  %>
+    </br>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable),
-    	input_html:{:class => 'form control bart_font body_color'} %>
+    	input_html:{:class => 'form control full-width bart_font body_color'} %>
+    </br>
     <%= f.input :password_confirmation, required: true,
-    	input_html:{:class => 'form-control bart_font body_color'}  %>
+    	input_html:{:class => 'form-control full-width bart_font body_color'}  %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>
   </div>
 <% end %>
-
+</br>
 <%= render "devise/shared/links" %>
+</div>
+</table>
+</div>
+</div>
