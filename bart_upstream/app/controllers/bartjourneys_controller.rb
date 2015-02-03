@@ -26,6 +26,7 @@ class BartjourneysController < ApplicationController
 
 	def show
 		@bartjourney = Bartjourney.find(params[:id])
+		@bartjourney_direction = @bartjourney.direction
 		@bartjourney_options = calculate_bart_times(@bartjourney)
 	end
 
