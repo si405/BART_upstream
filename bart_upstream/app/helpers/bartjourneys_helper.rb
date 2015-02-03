@@ -88,89 +88,91 @@ module BartjourneysHelper
 				feasible_train_options = 
 					filter_departures(departure_times,bartroute_options)
 			else
+
+				feasible_train_options = 
+					calculate_upstream_options(origin_station,upstream_station_codes,bartroute_options)
+			end
+		end
+		return feasible_train_options
+	end
+
+	def calculate_upstream_options(origin_station,upstream_station_codes,bartroute_options)
+		
+		# *** For now assume that reverse = southbound for testing upstream at ***
+		# *** SF stations ***
+		
+		bart_direction = 's'
+		
+		# For the reverse direction find the upstream stations on each route
+		# serving the origin station. The returned hash has each upstream 
+		# bartroutestation including the origin station
+		
+		departure_stations = get_upstream_stations(origin_station)
+		
+		# For each route and upstream station found
+		#     Find the departure times from each of those stations
+		# 	  Due to the BART API it's necessary to retrieve all departures
+		#     in the selected direction and then filter the results
+
+		upstream_departure_times = {}
+		departure_stations.each do |bartroute, upstream_stations|
+			upstream_stations.each do |departure_station|
 				
-				# *** For now assume that reverse = southbound for testing upstream at ***
-				# *** SF stations ***
+				# The array contains the id of the station and the API needs the short name
+				start_station_code = Bartstation.where("id = #{departure_station.bartstation_id}").pluck("short_name")[0]
 				
-				bart_direction = 's'
+				# Get the departure times for the upstream station in the selected
+				# direction
+
+				upstream_departure_times[start_station_code] = 
+					get_real_time_departures(start_station_code,bart_direction)
 				
-#				# Find the departure times from the current station heading in the 
-#				# reverse direction
-#				
-#				origin_departure_times = get_real_time_departures(origin_station,bart_direction)
+				upstream_station_codes[start_station_code] = departure_station.bartstation_id
+
+			end
+		end
+
+		# 2015-01-30 CODE CUT 1 FROM HERE -----
+
+		# 2015-01-30 CODE CUT 1 TO HERE -----
+
+		# For each upstream station find the northbound departures for each of those
+		# stations. Since the destination cannot be specified in the BART API it's
+		# necessary to get all trains and then filter the results
+
+		upstream_destination_departure_times = {}
+		departure_stations.each do |bartroute, upstream_stations|
+			upstream_stations.each do |departure_station|
 				
-				# For the reverse direction find the upstream stations on each route
-				# serving the origin station. The returned hash has each upstream 
-				# bartroutestation including the origin station
+				# The array contains the id of the station and the API needs the short name
+				start_station_code = Bartstation.where("id = #{departure_station.bartstation_id}").pluck("short_name")[0]
 				
-				departure_stations = get_upstream_stations(origin_station)
+				# Get the departure times for the upstream station in the northbound 
+				# direction
+
+				bart_direction = 'n'
+
+				departure_times = []
+				departure_times = get_real_time_departures(start_station_code,bart_direction)
 				
-				# For each route and upstream station found
-				#     Find the departure times from each of those stations
-				# 	  Due to the BART API it's necessary to retrieve all departures
-				#     in the selected direction and then filter the results
+				# The API returns all the departures from this station.
+				# Filter the results to only get those trains that are destined for the
+				# destination 
 
-				upstream_departure_times = {}
-				departure_stations.each do |bartroute, upstream_stations|
-					upstream_stations.each do |departure_station|
-						
-						# The array contains the id of the station and the API needs the short name
-						start_station_code = Bartstation.where("id = #{departure_station.bartstation_id}").pluck("short_name")[0]
-						
-						# Get the departure times for the upstream station in the selected
-						# direction
+				upstream_destination_departure_times[start_station_code] =
+						filter_departures(departure_times,bartroute_options)
+			end
+		end
 
-						upstream_departure_times[start_station_code] = 
-							get_real_time_departures(start_station_code,bart_direction)
-						
-						upstream_station_codes[start_station_code] = departure_station.bartstation_id
+		# Align the departures from the origin station with the departures
+		# from the upstream stations to show feasible train options
 
-					end
-				end
+		# 2015-01-30 CODE CUT 2 FROM HERE -----
 
-				# 2015-01-30 CODE CUT 1 FROM HERE -----
-
-				# 2015-01-30 CODE CUT 1 TO HERE -----
-
-				# For each upstream station find the northbound departures for each of those
-				# stations. Since the destination cannot be specified in the BART API it's
-				# necessary to get all trains and then filter the results
-
-				upstream_destination_departure_times = {}
-				departure_stations.each do |bartroute, upstream_stations|
-					upstream_stations.each do |departure_station|
-						
-						# The array contains the id of the station and the API needs the short name
-						start_station_code = Bartstation.where("id = #{departure_station.bartstation_id}").pluck("short_name")[0]
-						
-						# Get the departure times for the upstream station in the northbound 
-						# direction
-
-						bart_direction = 'n'
-
-						departure_times = []
-						departure_times = get_real_time_departures(start_station_code,bart_direction)
-						
-						# The API returns all the departures from this station.
-						# Filter the results to only get those trains that are destined for the
-						# destination 
-
-						upstream_destination_departure_times[start_station_code] =
-								filter_departures(departure_times,bartroute_options)
-					end
-				end
-
-				# Align the departures from the origin station with the departures
-				# from the upstream stations to show feasible train options
-
-				# 2015-01-30 CODE CUT 2 FROM HERE -----
-
-				# 2015-01-30 CODE CUT 2 TO HERE -----
+		# 2015-01-30 CODE CUT 2 TO HERE -----
 			
 				feasible_train_options = 
 					determine_feasible_trains(origin_station,upstream_departure_times,upstream_destination_departure_times)
-			end
-		end
 
 		# Sort the feasible train options hash in order of upstream station
 		# The hash upstream_station_codes holds the upstream stations in order
@@ -178,10 +180,6 @@ module BartjourneysHelper
 		return feasible_train_options
 	end
 
-	# Use the departure station to get the real-time departures from that station
-	# There will be trains to other destinations and these will be filtered later
-	# as there is no way to request real-time data from the origin station to the 
-	# destination station
 
 	def get_real_time_departures(origin_station,direction)
 

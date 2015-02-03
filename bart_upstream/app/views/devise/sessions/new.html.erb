@@ -17,13 +17,13 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    <%= f.submit "Submit".html_safe, "Log in", :class => 'btn btn-lg btn-success col-lg-offset-4 body_font body_color' %>
     </br>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
-
+ 
 </div>
 </div>
 </table>
