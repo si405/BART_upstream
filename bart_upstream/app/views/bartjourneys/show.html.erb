@@ -2,7 +2,7 @@
 <h1 class="col-lg-8 body_font col-lg-offset-3 heading_color">Journey Options</h1>
 
 
-<% if @bartjourney_direction = 'Normal' %>
+<% if @bartjourney_direction == 'Normal' %>
 	<%= render 'show_normal' %>
 <% else %>
 	<%= render 'show_reverse' %>
