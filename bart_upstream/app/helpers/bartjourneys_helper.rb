@@ -333,9 +333,11 @@ module BartjourneysHelper
 				# At this point we have processed all the upstream stations for this 
 				# particular origin train departure time
 
-				train_options[train_id] = valid_trains
-				departure_train_sequence = departure_train_sequence + 1
-				valid_trains = {}
+				if valid_trains != nil
+					train_options[train_id] = valid_trains
+					departure_train_sequence = departure_train_sequence + 1
+					valid_trains = {}
+				end
 			end
 		end
 	
@@ -351,11 +353,13 @@ module BartjourneysHelper
 					# display. Find all the destination trains that this train can meet 
 					# at this station
 					destination_trains[arrival_station].each do |train_destination, destination_times|
+						j = 0
 						destination_times.each do |destination_departure_time|
 							if destination_departure_time.to_i >= arrival_time.to_i
 								# The destination train leaves after this train arrives
-								train_id = [arrival_station,destination_departure_time]
+								train_id = [j, arrival_station,destination_departure_time]
 								valid_trains[train_id] = train_destination
+								j = j +1
 							end
 						end
 					end
