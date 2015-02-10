@@ -5,18 +5,25 @@
 <%= "To get from #{@start_station} to #{@end_station} your options are:" %>
 </p>
 
-<p class="body_font body_color">
-<% @bartjourney_options.each do |origin_train,destination_options|%>
-	<%= "#{origin_train[0]} leaving in #{origin_train[1]} min connects at " %>
-	</br>
-	<% destination_options.each do |station, destination| %>
-		<%= "#{station[1]} in #{station[2]} mins to #{destination}" %>
-		</br>
-	<% end %>
 
-	</br></br>
+<% @bartjourney_options.each do |origin_train,destination_options|%>
+	<p class="body_font body_color">
+	<%= "#{origin_train[0]} leaving in #{origin_train[1]} min connects at " %>
+	</p>
+	<p class="tab">
+	<% last_destination = 0 %>
+	<% if 
+	<% destination_options.each do |station, destination| %>
+		<% if destination[2] > last_destination %>
+			</br>
+		<% end %>
+		<%= "#{destination[1]} in #{destination[2]} mins to #{destination[3]}" %>
+		</br>
+	<% last_destination = destination[2] %>
+	<% end %>
+	</p>
 <% end %>
-</p>
+
 
 </div>
 

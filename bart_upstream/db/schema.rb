@@ -11,10 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126184347) do
+ActiveRecord::Schema.define(version: 20150206003147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bartjourney_trains", force: true do |t|
+    t.integer  "bartjourneys_id"
+    t.string   "train_destination"
+    t.string   "train_departure_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bartjourney_trains", ["bartjourneys_id"], name: "index_bartjourney_trains_on_bartjourneys_id", using: :btree
+
+  create_table "bartjourneyoptions", force: true do |t|
+    t.integer  "bartjourneytrains_id"
+    t.integer  "train_number"
+    t.integer  "station_number"
+    t.string   "arrival_station"
+    t.integer  "departure_time"
+    t.string   "destination"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bartjourneyoptions", ["bartjourneytrains_id"], name: "index_bartjourneyoptions_on_bartjourneytrains_id", using: :btree
 
   create_table "bartjourneys", force: true do |t|
     t.integer  "start_station_id"
@@ -24,6 +47,16 @@ ActiveRecord::Schema.define(version: 20141126184347) do
     t.datetime "updated_at"
     t.text     "direction",        default: "Normal"
   end
+
+  create_table "bartjourneytrains", force: true do |t|
+    t.integer  "bartjourneys_id"
+    t.string   "train_destination"
+    t.integer  "train_departure_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bartjourneytrains", ["bartjourneys_id"], name: "index_bartjourneytrains_on_bartjourneys_id", using: :btree
 
   create_table "bartroutes", force: true do |t|
     t.string   "bart_route_name"

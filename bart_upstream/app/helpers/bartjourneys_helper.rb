@@ -93,6 +93,9 @@ module BartjourneysHelper
 					calculate_upstream_options(origin_station,upstream_station_codes,bartroute_options)
 			end
 		end
+
+		feasible_train_options = sort_feasible_trains(feasible_train_options)
+
 		return feasible_train_options
 	end
 
@@ -346,8 +349,25 @@ module BartjourneysHelper
 		# each upstream station so now we can calculate which of the destination trains we can 
 		# meet at each station
 
+		# Get the upstream stations so that the departures can be orderd correctly
+
+		i = 0
+		upstream_sequence = []
+		departure_stations = get_upstream_stations(origin_station)
+
+		departure_stations.each do |key,departure_station|
+			departure_station.each do |departure_details,value|
+				# The array contains the id of the station and the API needs the short name
+				station_code = Bartstation.where("id = #{departure_details[:bartstation_id]}").pluck("short_name")[0]
+				upstream_sequence[i] = station_code
+				i = i + 1
+			end
+		end
+
 		train_options.each do |train, train_times|
 			train_times.each do |arrival_station, arrival_time|
+				# Find the sequence of this station in relation to the origin station
+				station_sequence_no = upstream_sequence.index(arrival_station)
 				if arrival_station != origin_station
 					# Ignore the entry for the origin station. This is only used in the 
 					# display. Find all the destination trains that this train can meet 
@@ -357,7 +377,9 @@ module BartjourneysHelper
 						destination_times.each do |destination_departure_time|
 							if destination_departure_time.to_i >= arrival_time.to_i
 								# The destination train leaves after this train arrives
-								train_id = [j, arrival_station,destination_departure_time]
+								
+								train_id = [j, station_sequence_no,
+									arrival_station,destination_departure_time]
 								valid_trains[train_id] = train_destination
 								j = j +1
 							end
@@ -370,8 +392,81 @@ module BartjourneysHelper
 			possible_trains[train] = valid_trains
 			valid_trains = {}
 		end 
+
 		return possible_trains
 	end
+
+	def sort_feasible_trains(unsorted_train_options)
+		# Take the hash containing all the possible train options and sort it so that the 
+		# upstream stations are in sequence
+		# In the short term I'm using a database to sort the results due to the complexities of 
+		# the hash but will replace this section with something more efficient
+
+		# Use the unique bartroute to save a new instance of the BART journey train
+
+		trains_id = nil
+
+		unsorted_train_options.each do |departure_train, departure_options|
+			bartjourney_train = Bartjourneytrain.new
+			bartjourney_train.bartjourneys_id = @bartjourney.id
+			bartjourney_train.train_destination = departure_train[0]
+			bartjourney_train.train_departure_time = departure_train[1].to_i
+
+			if bartjourney_train.save
+
+				# Create an entry for each departure train option
+
+				departure_options.each do |station, destination|
+					bartjourney_option = Bartjourneyoption.new
+					bartjourney_option.bartjourneytrains_id = bartjourney_train.id
+					bartjourney_option.train_number = station[0] 
+					bartjourney_option.station_number = station[1] 
+					bartjourney_option.arrival_station = station[2]
+					bartjourney_option.departure_time = station[3]
+					bartjourney_option.destination = destination
+					bartjourney_option.save
+				end
+				trains_id = bartjourney_train.id
+			end
+		end
+
+		# Retrieve the results back in numerical order
+
+		sorted_train_options = {}
+		sorted_train_details = {}
+
+		sorted_departures = Bartjourneytrain.where(bartjourneys_id: @bartjourney.id).order(:train_departure_time)
+
+		sorted_departures.each do |bartjourneytrain|
+
+			sorted_train_key = 
+				[bartjourneytrain.train_destination, bartjourneytrain.train_departure_time]
+			
+			bartjourneyoptions = Bartjourneyoption.where(bartjourneytrains_id: bartjourneytrain.id).order(train_number: :asc, 
+					station_number: :asc, departure_time: :asc)
+
+			i = 0
+
+			bartjourneyoptions.each do |bartjourneyoption|
+
+				if bartjourneyoption != nil
+					sorted_train_details[i] = 
+						[bartjourneyoption.train_number, bartjourneyoption.arrival_station,
+								bartjourneyoption.departure_time, bartjourneyoption.destination]
+					i = i + 1
+				end
+			end
+
+			if sorted_train_details != nil
+				sorted_train_options[sorted_train_key] = sorted_train_details
+				sorted_train_details = {}
+			end
+		end
+
+		return sorted_train_options
+
+	end
+
 
 	def test_program
 		# Sort the hash to return the chronological options for each departing train
