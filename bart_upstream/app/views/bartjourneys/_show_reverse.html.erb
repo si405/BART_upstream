@@ -1,3 +1,4 @@
+
 <div class="col-lg-8 col-lg-offset-2">
 <div class="well">
 
@@ -8,11 +9,10 @@
 
 <% @bartjourney_options.each do |origin_train,destination_options|%>
 	<p class="body_font body_color">
-	<%= "#{origin_train[0]} leaving in #{origin_train[1]} min connects at " %>
+	<%= "#{origin_train[0]} leaving in #{origin_train[1]} min connects at: " %>
 	</p>
 	<p class="tab">
 	<% last_destination = 0 %>
-	<% if 
 	<% destination_options.each do |station, destination| %>
 		<% if destination[2] > last_destination %>
 			</br>
@@ -22,6 +22,7 @@
 	<% last_destination = destination[2] %>
 	<% end %>
 	</p>
+	</br>
 <% end %>
 
 

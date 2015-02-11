@@ -31,6 +31,13 @@ class BartjourneysController < ApplicationController
 		return @bartjourney_options, @bartjourney_direction
 	end
 
+	def sms
+		twiml = Twilio::TwiML::Response.new do |r|
+    		r.Message "Hey Monkey. Thanks for the message!"
+  		end
+  		render :text => twiml.text
+	end
+
 	def testme
 		@bartjourney = test_program
 	end
