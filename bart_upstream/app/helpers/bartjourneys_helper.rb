@@ -13,6 +13,17 @@ module BartjourneysHelper
 		return @bartstations
 	end
 
+	def get_station_codes_DB
+		@allbartstations = Bartstation.all
+		@bartstations = {}
+		@allbartstations.each do |bartstation|
+			@bartstations[bartstation.short_name] = 
+					bartstation.id
+		end
+		return @bartstations
+	end
+
+
 	# Determine the schedule between the selected origin and 
 	# destination stations. This is the main function.
 
@@ -251,7 +262,8 @@ module BartjourneysHelper
 		departure_times.each do |station,times|
 			bartroute_options.each do |bartroute_station,v|
 				if station == bartroute_station
-					station_name = Bartstation.where("short_name = '#{bartroute_station}'").pluck("station_name")[0]
+#					station_name = Bartstation.where("short_name = '#{bartroute_station}'").pluck("station_name")[0]
+					station_name = bartroute_station
 					filtered_departure_times[station_name] = times
 				end
 			end
