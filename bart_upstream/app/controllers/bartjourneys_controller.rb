@@ -149,9 +149,9 @@ class BartjourneysController < ApplicationController
 
 				# Send the information back via SMS
 				twiml = Twilio::TwiML::Response.new do |r|
- 			    	r.Message "#{sms_message}"
- 			    end
- 				twiml.text
+    				r.Message "#{sms_message}"
+  				end
+  				render :text => twiml.text 			    	
  			end
  		end
 	end
