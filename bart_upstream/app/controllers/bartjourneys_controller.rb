@@ -118,22 +118,22 @@ class BartjourneysController < ApplicationController
 				# final destination of the train
 				
 				@train_response = {}
-				latest_time = 100
+				latest_time = "100"
 				furthest_station = ""
 				furthest_destination = ""
 
 				@bartjourney_options.each do |train_destination,train_details|
-					latest_time = 100
+					latest_time = "100"
 					train_details.each do |station,destination|
-						if destination[2] > latest_time
+						if station[3] > latest_time
 							break
 						else
-							latest_time = destination[2]
-							furthest_station = destination[1]
-							furthest_destination = destination[3]
+							latest_time = station[3]
+							furthest_station = station[2]
+							furthest_destination = destination
 						end
 					end
-					if latest_time != 100
+					if latest_time != "100"
 						@train_response[train_destination] = 
 							[furthest_station,latest_time,furthest_destination]
 					end

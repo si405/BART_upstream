@@ -5,15 +5,16 @@
 <%= "The next trains from #{@start_station} to #{@end_station} are:" %>
 </p>
 
-<p class="body_font body_color">
 <% @bartjourney_options.each do |train_destination,departure_times| %>
+	<p class="body_font body_color">
 	<%= "#{train_destination} leaving in: " %>
 	</br>
+	<p class="tab">
 	<% departure_times.each do |departure_time| %>
 		<%= "#{departure_time} min" %>
 		</br>
 	<% end %>
-	</br></br>
+	</p>
 <% end %>
 </p>
 

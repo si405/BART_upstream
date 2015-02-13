@@ -96,6 +96,7 @@ module BartjourneysHelper
 			if @bartjourney.direction == "Normal"
 				bart_direction = nil
 				departure_times = get_real_time_departures(origin_station,bart_direction)
+				
 				feasible_train_options = 
 					filter_departures(departure_times,bartroute_options)
 			else
@@ -105,7 +106,9 @@ module BartjourneysHelper
 			end
 		end
 
-		feasible_train_options = sort_feasible_trains(feasible_train_options)
+		if @bartjourney.direction == "Reverse"
+			feasible_train_options = sort_feasible_trains(feasible_train_options)
+		end
 
 		return feasible_train_options
 	end
