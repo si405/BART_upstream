@@ -50,7 +50,7 @@ class BartjourneysController < ApplicationController
     	# For testing, assume certain stations if not invoked via Twilio
 
     	if message_body != nil
-	    	sms_message_array = message_body.split
+	    	sms_message_array = message_body.split.upcase
 	    else
 	    	sms_message_array[0] = "EMBR"
 	    	sms_message_array[1] = "CONC"
