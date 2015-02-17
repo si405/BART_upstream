@@ -47,6 +47,7 @@ class BartjourneysController < ApplicationController
     	
     	sms_message_array = []
 
+    	# For testing, assume certain stations if not invoked via Twilio
 
     	if message_body != nil
 	    	sms_message_array = message_body.split
@@ -118,14 +119,14 @@ class BartjourneysController < ApplicationController
 				# final destination of the train
 				
 				@train_response = {}
-				latest_time = "100"
+				latest_time = 100
 				furthest_station = ""
 				furthest_destination = ""
 
 				@bartjourney_options.each do |train_destination,train_details|
-					latest_time = "100"
+					latest_time = 100
 					train_details.each do |station,destination|
-						if station[3] > latest_time
+						if station[3].to_i > latest_time.to_i
 							break
 						else
 							latest_time = station[3]
@@ -133,7 +134,7 @@ class BartjourneysController < ApplicationController
 							furthest_destination = destination
 						end
 					end
-					if latest_time != "100"
+					if latest_time != 100
 						@train_response[train_destination] = 
 							[furthest_station,latest_time,furthest_destination]
 					end
