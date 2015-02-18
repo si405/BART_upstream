@@ -51,6 +51,8 @@ class BartjourneysController < ApplicationController
 
     	if message_body != nil
 	    	sms_message_array = message_body.split
+	    	sms_message_array[0] = sms_message_array[0].upcase
+	    	sms_message_array[1] = sms_message_array[1].upcase
 	    else
 	    	sms_message_array[0] = "EMBR"
 	    	sms_message_array[1] = "CONC"
@@ -71,10 +73,10 @@ class BartjourneysController < ApplicationController
 	    	sms_message_array.each do |sms_entry|
 	    		if station_codes.include?(sms_entry)
 	    			if i == 0 
-	    				start_station = sms_entry.upcase
+	    				start_station = sms_entry
 	    				i = i + 1
 	    			elsif i == 1
-	    				end_station = sms_entry.upcase
+	    				end_station = sms_entry
 	    				i = i + 1
 	    			elsif i > 1
 	    				if sms_entry == ('n' or 'N')
