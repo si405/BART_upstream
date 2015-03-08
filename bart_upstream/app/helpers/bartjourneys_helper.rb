@@ -390,11 +390,11 @@ module BartjourneysHelper
 					destination_trains[arrival_station].each do |train_destination, destination_times|
 						j = 0
 						destination_times.each do |destination_departure_time|
-							if destination_departure_time.to_i >= arrival_time.to_i
+							if destination_departure_time.to_i > arrival_time.to_i
 								# The destination train leaves after this train arrives
-								
+								wiggle_room = destination_departure_time.to_i - arrival_time.to_i
 								train_id = [j, station_sequence_no,
-									arrival_station,destination_departure_time]
+									arrival_station,wiggle_room]
 								valid_trains[train_id] = train_destination
 								j = j +1
 							end
