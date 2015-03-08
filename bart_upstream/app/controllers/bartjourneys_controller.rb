@@ -152,7 +152,7 @@ class BartjourneysController < ApplicationController
 
 				sms_message = ""
 				@train_response.each do |departing_train, furthest_station|
-					sms_message = sms_message + "#{departing_train[0]} train in #{departing_train[1]} min to #{furthest_station[0]} meets #{furthest_station[2]} in #{furthest_station[1]} mins "
+					sms_message = sms_message + "#{departing_train[0]} train in #{departing_train[1]} min to #{furthest_station[0]} meets #{furthest_station[2]} transfer in #{furthest_station[1]} mins "
 				end
 
 				# Send the information back via SMS
