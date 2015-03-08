@@ -125,6 +125,11 @@ class BartjourneysController < ApplicationController
 				furthest_station = ""
 				furthest_destination = ""
 
+				# Find the furthest stations for each train by comparing the departure
+				# times. Once the departure time at a station is greater than the prior
+				# station this indicates that the furthest station is the prior one as
+				# departure times are in descending order
+				
 				@bartjourney_options.each do |train_destination,train_details|
 					latest_time = 100
 					train_details.each do |station,destination|
